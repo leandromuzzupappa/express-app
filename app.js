@@ -16,10 +16,8 @@ app.listen(PORT, () => {
 const heroesJSON = fs.readFileSync(getAbsolutePath('./data/heroes.json'), { encoding: 'utf-8' });
 const heroes = JSON.parse(heroesJSON);
 
-
-app.get('/', (req, res) => {
-    res.send('Ni Superman, Iron Man o La Mujer Maravilla son tan importantes cómo las y los Heroes de carne y hueso que encontrarás en este sitio. Esperamos que ellas y ellos te sirvan como inspiración para poder cumplir tus objetivos. Recuerda: ¡nunca pares de creer en ti!.')
-});
+// Routes
+const MainRoutes = require('./routes/main');
 
 app.get('/heroes', (req, res) => {
     res.send(heroes)
@@ -50,9 +48,4 @@ app.get('/heroes/bio/:id/:ok?', (req, res) => {
     }
 });
 
-app.get('/creditos', (req, res) => {
-    const emojis = ["🌵", "🛌", "🌎", "🍄", "👾"];
-    const emoji = emojis[Math.floor( Math.random() * emojis.length )];
-    
-    res.send(`Leandro Muzzupappa @ ${emoji}`);
-});
+app.use(MainRoutes);
